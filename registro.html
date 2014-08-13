@@ -25,10 +25,10 @@
 
   <div class="container">
 
-    <form role="form" name="registro" method="POST">
+    <form role="form" name="registro" id="registro" method="POST">
       <div class="form-group">
         <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email">
+        <input type="text" class="form-control" id="email" placeholder="Enter email">
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -45,10 +45,37 @@
 
       </div>
 
-      <button type="submit" class="btn btn-default">Save</button>
-      <button type="submit" class="btn btn-default">Cancel</button>
+      <button type="button" class="btn btn-default">Cancel</button>
+      <button type="button" id="submit" class="btn btn-default">Save</button>
     </form>
 
 	</div>
+
+    <script>
+       $(document).ready(function(){
+        //la funcion se ejecuta al hacer click en el boton de save
+        $("#submit").click(function(){
+          //se crea una variable de tipo array
+          jsonObj = [];
+          //se recorren todos los objetos del formulario
+          $("#registro").find(':input').each(function() {
+            //se guarda en una variable el objeto del formulario
+           var elemento= this;
+            //si el elemento no es un boton se captura para enviar al array
+          if(elemento.type != 'button'){
+           //se crea una variable de tipo array
+            item = {}
+            //se agrega una llave y un valor al array item['nombre del campo'] = 'valor'
+            item [elemento.id] = elemento.value;
+            //se inserta el elemento con su valor en el arreglo json
+            jsonObj.push(item);
+          }
+          });
+          //se imprime el objeto en la consola
+          console.log(jsonObj);
+        });
+       });
+  </script>
+
   </body>
 </html>
